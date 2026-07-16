@@ -21,7 +21,7 @@ def get_site_packages() -> str:
     return paths[0] if paths else "unknown"
 
 
-def get_inside() -> None:
+def get_venv() -> None:
     print("MATRIX STATUS: Welcome to the construct")
     print()
     print(f"Current Python: {sys.executable}")
@@ -36,7 +36,7 @@ def get_inside() -> None:
     print(get_site_packages())
 
 
-def get_outside() -> None:
+def get_env() -> None:
     print("MATRIX STATUS: You're still plugged in")
     print()
     print(f"Current Python: {sys.executable}")
@@ -56,9 +56,9 @@ def get_outside() -> None:
 def main() -> None:
     try:
         if is_virtual_env():
-            get_inside()
+            get_venv()
         else:
-            get_outside()
+            get_env()
     except OSError as e:
         print(f"MATRIX ERROR: unable to read the environment ({e})")
 
