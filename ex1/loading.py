@@ -8,10 +8,6 @@ try:
 except ImportError:
     pandas = None
 try:
-    import requests
-except ImportError:
-    requests = None
-try:
     import matplotlib
     import matplotlib.pyplot as plt
 except ImportError:
