@@ -8,15 +8,13 @@ def is_virtual_env() -> bool:
 
 
 def get_venv_name() -> str:
-    activated = os.environ.get("VIRTUAL_ENV")
-    source = activated if activated else sys.prefix
-    return os.path.basename(source.rstrip(os.sep))
+    return os.path.basename(sys.prefix)
 
 
 def get_site_packages() -> str:
     try:
         paths = site.getsitepackages()
-    except (AttributeError, IndexError):
+    except AttributeError:
         return "unknown"
     return paths[0] if paths else "unknown"
 
@@ -54,13 +52,10 @@ def get_env() -> None:
 
 
 def main() -> None:
-    try:
-        if is_virtual_env():
-            get_venv()
-        else:
-            get_env()
-    except OSError as e:
-        print(f"MATRIX ERROR: unable to read the environment ({e})")
+    if is_virtual_env():
+        get_venv()
+    else:
+        get_env()
 
 
 if __name__ == "__main__":
