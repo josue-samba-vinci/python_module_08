@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 try:
     import numpy
 except ImportError:
@@ -37,22 +38,16 @@ def check_dependencies() -> bool:
 
 def generate_matrix_data(size: int) -> numpy.ndarray:
     """Generate a random matrix of given size."""
-    if numpy is None:
-        raise ImportError("numpy is required to generate matrix data.")
     return numpy.random.rand(size)
 
 
 def process_matrix_data(data: numpy.ndarray) -> pandas.DataFrame:
     """Process the matrix data and return a DataFrame."""
-    if pandas is None:
-        raise ImportError("pandas is required to process data.")
     dataframe = pandas.DataFrame(data, columns=["numbers"])
     return dataframe
 
 
 def display_matrix(dataframe: pandas.DataFrame) -> None:
-    if plt is None:
-        raise ImportError("pyplot is required to display the matrix")
     plt.hist(dataframe)
     plt.savefig("matrix_analysis.png")
 
@@ -64,6 +59,10 @@ def main() -> None:
     boolean = check_dependencies()
     print()
     if boolean:
+        if "pypoetry" in sys.prefix.split("/"):
+            print("Dependencies loaded with poetry")
+        else:
+            print("Dependencies loaded with pip")
         data = generate_matrix_data(1000)
         print("Analyzing Matrix data...")
         print("Processing 1000 data points...")
